@@ -1,16 +1,17 @@
 import * as fs from 'fs';
+import { generateEmptyArray } from './util';
 
 // http://yann.lecun.com/exdb/mnist/
 const dataFileBuffer = fs.readFileSync('./data/train-images-idx3-ubyte');
 const labelFileBuffer = fs.readFileSync('./data/train-labels-idx1-ubyte');
 
-interface image {
+interface Image {
     // 28 * 28
-    image: number[][];
+    image: number[];
     label: number;
 }
 
-export const trainImages = [...new Array(20000)].map<image>((_, index) => {
+export const trainImages = generateEmptyArray(20000).map<Image>((_, index) => {
     // [offset] [type]          [value]          [description]
     // 0000     32 bit integer  0x00000803(2051) magic number
     // 0004     32 bit integer  60000            number of images
@@ -22,17 +23,11 @@ export const trainImages = [...new Array(20000)].map<image>((_, index) => {
     // xxxx     unsigned byte   ??               pixel
     // The images were centered in a 28x28 image by computing the center of mass of the pixels,
     // and translating the image so as to position this point at the center of the 28x28 field
-    const imagePixels = [...new Array(28)].map<number[]>((_, y) => {
-        const rows = [...new Array(28)].map<number>((_, x) => {
-            // index번째 이미지 시작지점, 첫 16번째 byte까지는 위에 정의된 값들임
-            const imageStartIndex = index * 28 * 28 + 16;
-            // y번째 row의 x번째 항목 ( 28 * 28 )
-            const content = x + (y * 28);
+    const imagePixels = generateEmptyArray(28 * 28).map<number>((_, x) => {
+        // index번째 이미지 시작지점, 첫 16번째 byte까지는 위에 정의된 값들임
+        const imageStartIndex = index * 28 * 28 + 16;
 
-            return dataFileBuffer[imageStartIndex + content];
-        });
-
-        return rows;
+        return dataFileBuffer[imageStartIndex + x];
     });
 
     // 0000     32 bit integer  0x00000801(2049) magic number (MSB first)
@@ -46,3 +41,6 @@ export const trainImages = [...new Array(20000)].map<image>((_, index) => {
         label: labelFileBuffer[index + 8],
     };
 });
+
+
+// ysbae@tukorea.ac.kr
