@@ -4,6 +4,10 @@ export function sigmoid(x: number) {
     return 1 / (1 + Math.exp(-x));
 }
 
+export function sigmoidArray(x: number[]) {
+    return x.map(input => sigmoid(input));
+}
+
 export function dSigmoid(x: number) {
     return sigmoid(x) * (1 - sigmoid(x));
 }
@@ -21,4 +25,11 @@ export function predict(target: number) {
     arr[target] = 1;
 
     return arr
+}
+
+export function crossEntropyError(output: number[], target: number) {
+    const delta = 0.0000001; // 1e-7
+    return output.reduce((sum, current) =>
+        sum - target * Math.log(current + delta)
+    , 0);
 }
