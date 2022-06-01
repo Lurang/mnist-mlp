@@ -20,6 +20,10 @@ export function softmax(logits: number[]) {
     return scores.map(s => s / denom);
 }
 
+export function relu(x: number) {
+    return Math.max(0, x);
+}
+
 export function predict(target: number) {
     const arr = generateEmptyArray<number>(10).fill(0);
     arr[target] = 1;
@@ -27,9 +31,9 @@ export function predict(target: number) {
     return arr
 }
 
-export function crossEntropyError(output: number[], target: number) {
+export function crossEntropyError(output: number[], target: number[]) {
     const delta = 0.0000001; // 1e-7
-    return output.reduce((sum, current) =>
-        sum - target * Math.log(current + delta)
+    return output.reduce((sum, current, index) =>
+        sum - target[index] * Math.log(current + delta)
     , 0);
 }

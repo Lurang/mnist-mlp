@@ -24,6 +24,9 @@ function forward(input: number[], node: number, w: number[][], b: number[][], af
     return af(layer);
 }
 
+const epoch = 30;
+const errors = [];
+
 for (const trainImage of trainImages) {
     const input = trainImage.image.map(x => x / 255); //downscale
 
@@ -38,6 +41,8 @@ for (const trainImage of trainImages) {
 
     const o = layerInfo.OUTPUT_LAYER_NODE;
     const output = forward(h3Output, OUTPUT_LAYER_NODE, o.w, o.b ,softmax);
+    const target = predict(trainImage.label);
 
-    const error = crossEntropyError(output, trainImage.label);
+    const error = crossEntropyError(output, target);
+    errors.push(error);
 }
