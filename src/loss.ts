@@ -37,3 +37,9 @@ export function crossEntropyError(output: number[], target: number[]) {
         sum - target[index] * Math.log(current + delta)
     , 0);
 }
+
+export function MSE(output: number[], target: number[]) {
+    return output.map((_, index) =>
+        1 / 2 * ((target[index] - output[index]) ** 2)
+    );
+}

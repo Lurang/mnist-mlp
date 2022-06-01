@@ -1,5 +1,5 @@
 import { trainImages } from './images';
-import { crossEntropyError, predict, sigmoidArray, softmax } from './loss';
+import { MSE, predict, sigmoidArray, softmax } from './loss';
 import { generateEmptyArray } from './util';
 import {
     INPUT_LAYER_NODE,
@@ -43,6 +43,6 @@ for (const trainImage of trainImages) {
     const output = forward(h3Output, OUTPUT_LAYER_NODE, o.w, o.b ,softmax);
     const target = predict(trainImage.label);
 
-    const error = crossEntropyError(output, target);
+    const error = MSE(output, target);
     errors.push(error);
 }
