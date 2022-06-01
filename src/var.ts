@@ -27,19 +27,3 @@ export const layerInfo = {
         b: generateRandom2dArray(OUTPUT_LAYER_NODE, HIDDEN_LAYER_NODE3),
     },
 };
-
-// Array of HIDDEN_LAYER_NODE * INPUT_LAYER_NODE
-export const weight = generateEmptyArray<number>(HIDDEN_LAYER_NODE).map(_ =>
-    generateEmptyArray<number>(28 * 28).map(_ => Math.random() / 100)
-);
-export const bios = generateEmptyArray<number>(HIDDEN_LAYER_NODE).map(_ =>
-    generateEmptyArray<number>(28 * 28).map(_ => Math.random() / 100)
-);
-
-// Array of OUTPUT_LAYER_NODE * HIDDEN_LAYER_NODE
-export const weight2 = generateEmptyArray<number>(OUTPUT_LAYER_NODE).map(_ =>
-    generateEmptyArray<number>(HIDDEN_LAYER_NODE).map(_ => Math.random() / 100)
-);
-export const bios2 = generateEmptyArray<number>(OUTPUT_LAYER_NODE).map(_ =>
-    generateEmptyArray<number>(HIDDEN_LAYER_NODE).map(_ => Math.random() / 100)
-);
