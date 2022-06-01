@@ -41,6 +41,3 @@ export const trainImages = generateEmptyArray(20000).map<Image>((_, index) => {
         label: labelFileBuffer[index + 8],
     };
 });
-
-
-// ysbae@tukorea.ac.kr
